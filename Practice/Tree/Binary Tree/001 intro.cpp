@@ -45,6 +45,41 @@ void inlineTravesal(Node* root){
     }
     cout<<endl;
 }
+
+void buildFromLevelOrder(Node* &root) {
+    queue<Node*> q;
+
+    cout << "Enter data for root" << endl;
+    int data ;
+    cin >> data;
+    root = new Node(data);
+    
+    q.push(root);
+
+    while(!q.empty()) {
+        Node* temp = q.front();
+        q.pop();
+
+        cout << "Enter left node for: " << temp->data << endl;
+        int leftData;
+        cin >> leftData;
+
+        if(leftData != -1) {
+            temp -> left = new Node(leftData);
+            q.push(temp->left);
+        }
+
+        cout << "Enter right node for: " << temp->data << endl;
+        int rightData;
+        cin >> rightData;
+
+        if(rightData != -1) {
+            temp -> right = new Node(rightData);
+            q.push(temp->right);
+        }
+    }
+ }
+
 void treeTraversal(Node* root){
     std::queue<Node*> q;
     q.push(root);
@@ -104,6 +139,10 @@ void postorder(Node* root){//LRN formula
 int main()
 {
     Node* root = NULL;
+    
+    buildFromLevelOrder(root);
+    inlineTravesal(root);
+    treeTraversal(root);
     root = bulidTree(root);
     inlineTravesal(root);
     treeTraversal(root);
@@ -120,6 +159,38 @@ int main()
     return 0;
 }
 /*
+Enter data for root
+1
+Enter left node for: 1
+3
+Enter right node for: 1
+5
+Enter left node for: 3
+7
+Enter right node for: 3
+11
+Enter left node for: 5
+17
+Enter right node for: 5
+-1
+Enter left node for: 7
+-1
+Enter right node for: 7
+-1
+Enter left node for: 11
+-1
+Enter right node for: 11
+-1
+Enter left node for: 17
+-1
+Enter right node for: 17
+-1
+1 3 5 7 11 17 
+1 
+3 5 
+7 11 17 
+
+
 enter the data
 1 3 7 -1 -1 11 -1 -1 5  6 -1 -1 8 -1 -1
 enter the data to be stored on left of the 1
