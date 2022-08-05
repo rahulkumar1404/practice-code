@@ -39,12 +39,16 @@ class Heap{
             while(i<size){
                 int left = 2*i;
                 int right = 2*i +1;
-                if(left<size && arr[i] < arr[left]){
-                    swap(arr[i],arr[left]);
-                    i = left;
-                }else if(right < size && arr[i] < arr[right]){
-                    swap(arr[i],arr[right]);
-                    i = right;
+                int temp = i;
+                if(left <= size && arr[temp] < arr[left]){
+                    temp = left;
+                }
+                if(right <= size && arr[temp] < arr[right]){
+                    temp = right;
+                }
+                if(arr[temp] > arr[i]){
+                    swap(arr[temp],arr[i]);
+                    i = temp;
                 }
                 else return;
             }
@@ -53,21 +57,53 @@ class Heap{
 int main()
 {
     Heap h;
-    
-    h.insert(1);
-    h.insert(2);
-    h.insert(3);
-    h.insert(4);
-    h.insert(5);
-    h.insert(6);
+    std::cout << "enter the size for creating heap " << std::endl;
+    int n;
+    std::cin >> n;
+    std::cout << "enter the values wanted to store in Heap" << std::endl;
+    int val;
+    for(int i = 1;i<=n;i++){
+        cin>>val;
+        h.insert(val);
+    }
     h.print();
-    h.deleteFromHeap();
-    h.print();
+    std::cout << "enter the number of elements you wanted to be delete" << std::endl;
+    int d;
+    cin>>d;
+    for(int i = 1;i<=d;i++){
+        h.deleteFromHeap();
+        std::cout << "Deleteion succesfully at index = "<< i <<" elements " << std::endl;
+        h.print();
+    }
     return 0;
 }
 /*
 T.C for Inseration O(log n)
-6 4 5 1 3 2 
-4 2 5 1 3 
+
 T.c for Deleteion O(logn)
+enter the size for creating heap
+5 6
+enter the values wanted to store in Heap
+115
+584
+285
+152
+251
+125
+584 251 285 115 152 125 
+enter the number of elements you wanted to be delete
+6
+Deleteion succesfully at index = 1 elements 
+285 251 125 115 152 
+Deleteion succesfully at index = 2 elements 
+251 152 125 115 
+Deleteion succesfully at index = 3 elements 
+152 115 125 
+Deleteion succesfully at index = 4 elements 
+125 115 
+Deleteion succesfully at index = 5 elements 
+115 
+Deleteion succesfully at index = 6 elements 
+
+
 */
